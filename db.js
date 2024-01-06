@@ -1,5 +1,11 @@
 const mongoose = require('mongoose')
 
-const connection = mongoose.connect("")
+require('dotenv').config()
 
-module.exports= {connection}
+const connection = mongoose.connect(process.env.MONGO_URI)
+
+const PORT = process.env.PORT
+
+module.exports = {
+    connection, PORT
+}
