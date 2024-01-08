@@ -4,9 +4,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-const userRouter = express.Router();
+const userController = express.Router();
 
-userRouter.post("/signup", async (req, res) => {
+userController.post("/signup", async (req, res) => {
   const { name, email, password } = req.body;
   const existingUser = await UserModel.findOne({ email: email });
 
@@ -30,7 +30,7 @@ userRouter.post("/signup", async (req, res) => {
   }
 });
 
-userRouter.post("/login", async (req, res) => {
+userController.post("/login", async (req, res) => {
   const { name, email, password } = req.body;
   const user = await UserModel.findOne({ email });
 
@@ -53,5 +53,5 @@ userRouter.post("/login", async (req, res) => {
 });
 
 
-module.exports = { userRouter };
+module.exports = { userController };
  

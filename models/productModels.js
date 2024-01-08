@@ -7,7 +7,7 @@ const productsSchema = mongoose.Schema({
     currentprice: {type:String, required:true},
     originalprice: {type:String, required:true},
     name: {type:String, required:true},
-    material: {trpe:String, required:true},
+    material: {type:String, required:true},
     video: {type:String, required:true},
     src3: {type:String, required:true},
     userId: {type:String, required:true},
@@ -15,6 +15,22 @@ const productsSchema = mongoose.Schema({
 
 })
 
-const productsModel = mongoose.model("product", productsSchema)
+const CartProductsSchema = mongoose.Schema({
+    src1:{type:String},
+    src2: {type:String},
+    tag: {type:String},
+    currentprice: {type:String},
+    originalprice: {type:String},
+    name: {type:String},
+    material: {type:String},
+    video: {type:String},
+    src3: {type:String},
+    userId: {type:String},
+    
+})
 
-module.exports= {productsModel}
+const productsModel = mongoose.model("product", productsSchema)
+const CartProductsModel = mongoose.model("cart", CartProductsSchema)
+
+
+module.exports= {productsModel, CartProductsModel}
