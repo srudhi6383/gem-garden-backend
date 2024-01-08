@@ -31,26 +31,35 @@ userController.post("/signup", async (req, res) => {
 });
 
 userController.post("/login", async (req, res) => {
-  const { name, email, password } = req.body;
-  const user = await UserModel.findOne({ email });
+  const { email, password } = req.body;
 
-  const hashed_password = user.password;
   try {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.json({ status: "User not found" });
+    }
+
+    const hashed_password = user.password;
+
     bcrypt.compare(password, hashed_password, async function (err, result) {
       if (err || !result) {
-        return json({ status: "User not Logged in" });
+        return res.json({ status: "User not Logged in" });
       }
+
       const token = jwt.sign({ userId: user._id }, process.env.secretToken);
       res.json({
-        status: "User Logged in SuccessFully",
-        userIs: name,
+        status: "User Logged in Successfully",
+        userIs: user.name,
         token: token,
       });
     });
   } catch (err) {
     console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 
 module.exports = { userController };
