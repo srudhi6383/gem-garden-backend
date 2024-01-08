@@ -1,8 +1,8 @@
 const express = require("express");
 const {
   ProductsModel,
-  CartProductsModel
-} = require("../models/productModels");
+  CartProductsModel,
+} = require("../models/productsModels");
 
 const productController = express.Router();
 
